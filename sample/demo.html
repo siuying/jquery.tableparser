@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="../vendor/jquery-1.6.min.js"></script>
+<script src="../lib/jquery.tableparser.js"></script>
+<script>
+$(document).ready(function(){
+  var simple = $("#simple").parsetable();
+  console.log(simple);
+
+  var cols = $("#cols").parsetable();
+  console.log(cols);
+
+  var rows = $("#rows").parsetable();
+  console.log(rows);
+
+  var complex = $("#complex").parsetable();
+  console.log(complex);
+});
+</script>
+
+<meta charset=utf-8 />
+<title>JS Bin</title>
+<!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<style>
+  article, aside, figure, footer, header, hgroup,
+  menu, nav, section { display: block; }
+</style>
+</head>
+<body>
+  
+<table id="simple">
+  <tr><td>A</td><td>B</td><td>C</td></tr>
+  <tr><td>3e</td><td>4e</td><td>5e</td></tr>
+</table>
+  
+  <hr/>
+
+<table id="cols">
+  <tr><td>A</td><td>B</td><td>C</td></tr>
+  <tr><td colspan="2">2A</td><td>2C</td></tr>
+</table>
+  
+  <hr/>
+  
+<table id="rows">
+  <tr><td>A</td><td>B</td><td>C</td></tr>
+  <tr><td rowspan="2">2A</td><td>2B</td><td>2C</td></tr>
+  <tr><td>3B</td><td>3C</td></tr>
+</table>
+
+  <hr/>
+  
+<table id="complex">
+  <tr><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr>
+  <tr><td rowspan="5">1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+  <tr><td rowspan="2" colspan="2">2b</td><td>4b</td><td>5b</td></tr>
+  <tr><td rowspan="2">4c</td><td>5c</td></tr>
+  <tr><td rowspan="2">2d</td><td>3d</td><td>5d</td></tr>
+  <tr><td>3e</td><td>4e</td><td>5e</td></tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="../vendor/jquery-1.6.min.js"></script>
+<script src="../lib/jquery.tableparser.js"></script>
+
+<script src="qunit.js"></script>
+<link rel="stylesheet" href="qunit.css" type="text/css" />
+
+<script>
+$(document).ready(function(){
+  test("test on simple table", function() {
+    var table = $("#simple").parsetable();
+    ok(table != undefined, "table should be defined" );
+    equals(table.length, 3, "should have 3 columns" );
+    $(table).each(function(i, col){
+      equals(col.length, 2, "each columns should have 2 rows" );      
+    });
+  });
+  
+  test("test on colspan table", function() {
+    var table = $("#cols").parsetable();
+    ok(table != undefined, "table should be defined" );
+    equals(table.length, 3, "should have 3 columns" );
+    $(table).each(function(i, col){
+      equals(col.length, 2, "each columns should have 2 rows" );      
+    });
+  });
+  
+  test("test on rowspan table", function() {
+    var table = $("#rows").parsetable();
+    ok(table != undefined, "table should be defined" );
+    equals(table.length, 3, "should have 3 columns" );
+    $(table).each(function(i, col){
+      equals(col.length, 3, "each columns should have 3 rows" );      
+    });
+  });
+  
+  test("test on complex table mixed colspan/rowspan", function() {
+    var table = $("#complex").parsetable();
+    ok(table != undefined, "table should be defined" );
+    equals(table.length, 5, "should have 5 columns" );
+    $(table).each(function(i, col){
+      equals(col.length, 6, "each columns should have 6 rows" );      
+    });
+    
+    equals(table[0][0], "A");
+    equals(table[0][1], "1");
+    equals(table[0][2], "");
+    
+    equals(table[2][0], "C");
+    equals(table[2][1], "3");
+    equals(table[2][2], "");
+    equals(table[2][3], "");
+    equals(table[2][4], "3d");
+    equals(table[2][5], "3e");   
+    
+    equals(table[3][0], "D");
+    equals(table[3][1], "4");
+    equals(table[3][2], "4b");
+    equals(table[3][3], "4c");
+    equals(table[3][4], "");
+    equals(table[3][5], "4e");    
+  });
+  
+  test("test on dupCols and dupRows options", function() {
+    var table = $("#complex").parsetable(true, true);
+    ok(table != undefined, "table should be defined" );
+    equals(table.length, 5, "should have 5 columns" );
+    $(table).each(function(i, col){
+      equals(col.length, 6, "each columns should have 6 rows" );      
+    });
+    
+    
+    equals(table[2][0], "C");
+    equals(table[2][1], "3");
+    equals(table[2][2], "2b");
+    equals(table[2][3], "2b");
+    equals(table[2][4], "3d");
+    equals(table[2][5], "3e");   
+    
+    equals(table[3][0], "D");
+    equals(table[3][1], "4");
+    equals(table[3][2], "4b");
+    equals(table[3][3], "4c");
+    equals(table[3][4], "4c");
+    equals(table[3][5], "4e");    
+  });
+  
+  
+});
+</script>
+
+<meta charset=utf-8 />
+<title>jquery.tableparser test</title>
+<!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<style>
+  article, aside, figure, footer, header, hgroup,
+  menu, nav, section { display: block; }
+  .hidden {display: none;}
+</style>
+</head>
+<body>
+  
+<h1 id="qunit-header">jquery.tableparser test</h1>
+<h2 id="qunit-banner"></h2>
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+<div id="qunit-fixture">test markup, will be hidden</div>
+
+<div class='hidden'>
+<table id="simple">
+  <tr><td>A</td><td>B</td><td>C</td></tr>
+  <tr><td>3e</td><td>4e</td><td>5e</td></tr>
+</table>
+  
+  <hr/>
+
+<table id="cols">
+  <tr><td>A</td><td>B</td><td>C</td></tr>
+  <tr><td colspan="2">2A</td><td>2C</td></tr>
+</table>
+  
+  <hr/>
+  
+<table id="rows">
+  <tr><td>A</td><td>B</td><td>C</td></tr>
+  <tr><td rowspan="2">2A</td><td>2B</td><td>2C</td></tr>
+  <tr><td>3B</td><td>3C</td></tr>
+</table>
+
+  <hr/>
+  
+<table id="complex">
+  <tr><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr>
+  <tr><td rowspan="5">1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+  <tr><td rowspan="2" colspan="2">2b</td><td>4b</td><td>5b</td></tr>
+  <tr><td rowspan="2">4c</td><td>5c</td></tr>
+  <tr><td rowspan="2">2d</td><td>3d</td><td>5d</td></tr>
+  <tr><td>3e</td><td>4e</td><td>5e</td></tr>
+</table>
+</div>
+</body>
+</html>
